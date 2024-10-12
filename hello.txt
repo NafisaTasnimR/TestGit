@@ -1,2 +1,78 @@
-this is a new world
+CREATE TABLE pokemon(
+	pokemon_id INT,
+    name VARCHAR(50),
+    type VARCHAR(20),
+    hp INT,
+    attack INT,
+    defense INT,
+    speed INT,
+    PRIMARY KEY(pokemon_id)
+);
 
+CREATE TABLE TRAINER(
+	trainer_id INT,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
+    city VARCHAR(30),
+    PRIMARY KEY(trainer_id)
+);
+
+INSERT INTO pokemon VALUES(1,'Bulbasaur','Grass',45,49,49,45),
+						  (2,'Ivysaur','Grass',60,62,63,60),
+                          (3,'Venusaur','Grass',80,82,83,80),
+                          (4,'Charmander','Fire',39,52,43,65),
+                          (5,'Charmeleon','Fire',58,64,58,80),
+                          (6,'Charizard','Fire',78,84,78,100),
+                          (7,'Squirtle','Water',44,48,65,43),
+                          (8,'Wartortle','Water',59,63,80,58),
+						  (9,'Blastoise','Water',79,83,100,78),
+                          (10,'Pikachu','Electric',35,55,40,90),
+                          (11,'Raichu','Electric',60,90,55,110);
+                          
+INSERT INTO trainer VALUES(1,'Ash','Ketchum','Pallet Town'),
+						  (2,'Misty','Williams','Cerulean City'),
+                          (3,'Brock','Harrison','Pewter City'),
+                          (4,'Gary','Oak','Pallet Town'),
+                          (5,'Erika','Green','Celadon City');
+
+
+
+
+SELECT DISTINCT pokemon.type 
+FROM pokemon;
+
+
+SELECT pokemon.name,pokemon.attack
+FROM pokemon
+WHERE pokemon.attack BETWEEN 50 AND 80;
+
+
+SELECT pokemon.pokemon_id,pokemon.name
+FROM pokemon
+WHERE pokemon.name LIKE('C%');
+
+
+SELECT pokemon.pokemon_id,pokemon.name
+FROM pokemon
+WHERE pokemon.name LIKE('%saur%');
+
+
+SELECT pokemon.pokemon_id,pokemon.name
+FROM pokemon
+WHERE pokemon.name LIKE('____e____');
+
+SELECT CONCAT(trainer.first_name," ",trainer.last_name) AS full_name,trainer.city
+FROM trainer;
+
+SELECT pokemon.name,pokemon.type,pokemon.attack
+FROM pokemon
+ORDER BY pokemon.type ASC,pokemon.attack DESC;
+
+
+CREATE TABLE trainer_pokemon(
+	trainer_id INT,
+    pokemon_id INT,
+    PRIMARY KEY(trainer_id,pokemon_id),
+    FOREIGN KEY(trainer_id) REFERENCES trainer(trainer_id),
+    FOREIGN KEY(pokemon_id) REFERENCES pokemon(pokemon_id)
+);
